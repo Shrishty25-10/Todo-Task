@@ -1,0 +1,74 @@
+.home{
+    background-color: white;
+    width: 100%;
+    height: 80vh;
+    margin: 0px auto;
+    border-radius: 10px;
+    /* font-family: sans-serif; */
+   
+}
+.heading h1{
+    padding: 30px 30px;
+    font-weight: 550;
+   
+}
+/* .heading h1 {
+        text-align: center;
+        font-size:30px; font-weight:300; color:#222; letter-spacing:1px;
+        text-transform: uppercase;
+    
+        display: grid;
+        grid-template-columns: 1fr max-content 1fr;
+        grid-template-rows: 27px 0;
+        grid-gap: 20px;
+        align-items: center;
+        padding: 5% ;
+    }
+    
+.heading h1:after,.heading h1:before {
+        content: " ";
+        display: block;
+        border-bottom: 1px solid #719ae0;;
+        border-top: 1px solid #8aaae2;
+        height: 5px;
+      background-color:#f8f8f8;
+    }  */
+
+.fill-box input{
+    width: 80%;
+    margin:  5% 0% ;
+    border: none ;
+    border-bottom: 2px solid rgba(207, 207, 210, 0.791);
+    padding: 10px 2px 10px 5px;
+}
+
+.fill-box :focus{
+   
+        outline: none;
+        border-bottom: 2px solid  #5600c3;
+      
+}
+
+.fill-box svg:hover{
+    color: rgb(138, 130, 130);
+    
+}
+
+  .heading-1{
+    flex: 1;
+  }
+  .btns{
+    flex: 2;
+  }
+  .priority{
+    flex: 1;
+  }
+  .main-container{
+    width: 80%;
+  }
+  .heading-1 .input-container input{
+    width: 20px;
+    height: 20px;
+
+
+  }
