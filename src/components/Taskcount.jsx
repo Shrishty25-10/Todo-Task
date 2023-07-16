@@ -7,18 +7,18 @@ const Taskcount = ({total,pending,success,handleAllClear}) => {
     
   return (
     <>
-      <div className="buttoncount mx-5 my-5">
-        <Stack direction="row" className=" " spacing={25}>
-          <Button variant="outlined" color="secondary">
+      <div className="buttoncount  my-5">
+        <Stack direction="row" className="flex-button" >
+          <Button variant="outlined" color="secondary" className="button-flex-item my-3">
             Total: {total}
           </Button>
-          <Button variant="outlined" color="success">
+          <Button variant="outlined" color="success" className="button-flex-item my-3">
             Success: {success}
           </Button>
-          <Button variant="outlined" color="error">
+          <Button variant="outlined" color="error" className="button-flex-item my-3">
             Pending: {pending}
           </Button>
-          <Button variant="outlined" color="error" onClick={handleAllClear}>
+          <Button variant="outlined" color="error" onClick={handleAllClear} className="button-flex-item my-3">
             All Clear <MdDelete size="20px" />
           </Button>
         </Stack>

@@ -26,9 +26,7 @@ const Tasklist = ({item,loadTodos,completed,user_details,setUser_details,handleM
         });
       };
 
-      const handle =()=>{
-        console.log("ihgghjk");
-      }
+      
 
       
   return (
@@ -38,11 +36,12 @@ const Tasklist = ({item,loadTodos,completed,user_details,setUser_details,handleM
             <>
               
               <div
-                class="main-container mx-5 d-flex text-black mt-1 border-bottom"
+                className={item.completed ? "todo-row complete" : "todo-row"}
+               
               >
                 <div class="p-2 btns">
                   <h6
-                    className={completed ? "text-decoration-line-through" : ""} onClick={handleModal}
+                    className="" onClick={handleModal} style={{cursor:"pointer"}}
                   >
                    {item.title} 
                   </h6>
@@ -53,9 +52,9 @@ const Tasklist = ({item,loadTodos,completed,user_details,setUser_details,handleM
                 <div className="p-2 heading-1">
                   <div className="d-flex justify-content-center align-items-center gap-4">
                     <div className="d-flex align-items-center">
-                      <p className="m-2 text-muted">{item.date}</p>
+                      <p className="m-2 text-lead">{item.date}</p>
                     </div>
-                    <div className="d-flex input-container">
+                    
                       <div className="mt-2">
                         <input
                          type="checkbox"
@@ -66,7 +65,7 @@ const Tasklist = ({item,loadTodos,completed,user_details,setUser_details,handleM
                       <div className="m-2">
                         <MdDelete size="28px" onClick={() => deletetodo(item.id)} />
                       </div>
-                    </div>
+                   
                   </div>
                 </div>
               </div>

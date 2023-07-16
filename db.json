@@ -1,33 +1,32 @@
 {
   "todos": [
     {
-      "title": "call me",
-      "priority": "Middle",
-      "completed": false,
-      "date": "",
-      "id": 19
-    },
-    {
-      "title": "hgfghjkl;kjhgfghjkl;kjhghjkl",
-      "priority": "Low",
-      "completed": false,
-      "date": "",
-      "id": 20
-    },
-    {
-      "title": "call jhgfghjkhgfcvbkl",
-      "priority": "High",
-      "completed": false,
-      "date": "",
-      "": "call jhgfghjkhgfcvbkln",
-      "id": 21
-    },
-    {
       "title": ".vfghjklkjhgfdfghjk/;lkjh",
       "priority": "Middle",
       "completed": false,
       "date": "16 Jul",
       "id": 22
+    },
+    {
+      "title": "gfhyjukilyutytyuioyu",
+      "priority": "Priority",
+      "completed": false,
+      "date": "16 Jul",
+      "id": 24
+    },
+    {
+      "title": "'hgfghjkl;'';lkjhgfdfghj;'",
+      "priority": "Low",
+      "completed": false,
+      "date": "16 Jul",
+      "id": 25
+    },
+    {
+      "title": "yuijhgghjkl;bvcxcvbnm,.iuyghjh",
+      "priority": "Middle",
+      "completed": false,
+      "date": "16 Jul",
+      "id": 26
     }
   ]
 }
