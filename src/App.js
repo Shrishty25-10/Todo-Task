@@ -1,12 +1,19 @@
 import './App.css'
-import Home from './components/Home'
+import Home from './components/Home';
+import Modal from './components/Modal';
+import { BrowserRouter as Router , Routes, Route} from 'react-router-dom';
 
 function App() {
 
   return (
     <>
       <div className="app">
-        <Home/>
+        <Router>
+          <Routes>
+            <Route exact path='/' element={<Home/>}/>
+          </Routes>
+        </Router>
+       
       </div>
     </>
   )

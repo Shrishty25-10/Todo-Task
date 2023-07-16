@@ -4,12 +4,31 @@ import { MdDelete } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Tasklist = ({item,loadTodos}) => {
-    const [completed,setcomplete] = useState(false);
+const Tasklist = ({item,loadTodos,completed,user_details,setUser_details,handleModal}) => {
+    
     const deletetodo = async (id) => {
         await axios.delete(`http://localhost:3003/todos/${id}`);
         loadTodos();
       };
+      const handleCheckboxChange = async () => {
+        const updatedItem = {
+          ...item,
+          completed: !completed,
+        };
+    
+        // Update the 'completed' property in the backend
+        await axios.put(`http://localhost:3003/todos/${item.id}`, updatedItem);
+    
+        // Update the 'completed' property in the state
+        setUser_details({
+          ...user_details,
+          completed: !completed,
+        });
+      };
+
+      const handle =()=>{
+        console.log("ihgghjk");
+      }
 
       
   return (
@@ -23,26 +42,25 @@ const Tasklist = ({item,loadTodos}) => {
               >
                 <div class="p-2 btns">
                   <h6
-                    className={completed ? "text-decoration-line-through" : ""}
+                    className={completed ? "text-decoration-line-through" : ""} onClick={handleModal}
                   >
-                    {item.title}
+                   {item.title} 
                   </h6>
                 </div>
-                <div class="p-2 priority ">
+                <div class="p-2 priority">
                   <p>{item.priority}</p>
                 </div>
                 <div className="p-2 heading-1">
                   <div className="d-flex justify-content-center align-items-center gap-4">
                     <div className="d-flex align-items-center">
-                      <p className="m-2 text-muted">10 July</p>
+                      <p className="m-2 text-muted">{item.date}</p>
                     </div>
                     <div className="d-flex input-container">
                       <div className="mt-2">
                         <input
-                          type="checkbox"
-                          name="completed"
-                          checked={completed}
-                          onChange={() => setcomplete(!completed)}
+                         type="checkbox"
+                         checked={completed}
+                         onChange={handleCheckboxChange}
                         />
                       </div>
                       <div className="m-2">
