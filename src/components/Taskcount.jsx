@@ -9,17 +9,17 @@ const Taskcount = ({total,pending,success,handleAllClear}) => {
     <>
       <div className="buttoncount  my-5">
         <Stack direction="row" className="flex-button" >
-          <Button variant="outlined" color="secondary" className="button-flex-item my-3">
+          <Button variant="contained" color="secondary" className="button-flex-item my-3">
             Total: {total}
           </Button>
-          <Button variant="outlined" color="success" className="button-flex-item my-3">
+          <Button variant="contained" color="success" className="button-flex-item my-3">
             Success: {success}
           </Button>
-          <Button variant="outlined" color="error" className="button-flex-item my-3">
+          <Button variant="contained" color="primary" className="button-flex-item my-3">
             Pending: {pending}
           </Button>
-          <Button variant="outlined" color="error" onClick={handleAllClear} className="button-flex-item my-3">
-            All Clear <MdDelete size="20px" />
+          <Button variant="contained" color="error" onClick={handleAllClear} className="button-flex-item my-3">
+            All Clear  <MdDelete size="20px" />
           </Button>
         </Stack>
       </div>

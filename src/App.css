@@ -4,7 +4,7 @@
   text-decoration: none;
   list-style: none;
   box-sizing: border-box;
-  color: white;
+ 
   
 }
 
@@ -13,6 +13,7 @@
 .home{
   position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
   
 }
 
@@ -25,16 +26,20 @@
   background-image: url('https://media.diy.com/is/image/Kingfisher/goodhome-nashi-black-glass-effect-glass-splashback-h-800mm-w-900mm-t-5mm~3663602636793_36c?$MOB_PREV$&$width=618&$height=618'); 
   background-size: cover;
   background-position: center;
-  opacity: 0.9; /* Adjust the opacity to your preference */
+  opacity: 0.8999; /* Adjust the opacity to your preference */
   z-index: -1; /* Place it behind other elements */
 }
 
 .front-div {
   position: relative;
   z-index: 1; 
- /* Place it on top of other elements */
-  /* Add your styles for the front div here */
+ 
 }
+.alert-message{
+  position: absolute;
+  top: 50px;
+  right: 50px;
 
+}
 
 

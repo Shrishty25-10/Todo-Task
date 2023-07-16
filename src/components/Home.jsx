@@ -6,15 +6,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Tasklist from "./Tasklist";
 import CustomModal from "./CustomModal";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import { useNavigate } from "react-router-dom";
 import Taskcount from "./Taskcount";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
 const Home = () => {
   const [todos, setTodo] = useState([]);
   const [user_details, setUser_details] = useState({
     title: "",
-    priority: "Priority",
+    priority: "None",
     completed: false,
     date: getCurrentDate(),
   });
@@ -27,6 +28,8 @@ const Home = () => {
   const { total, success, pending } = counttodo;
 
   const [show, setShow] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [handlemsg, setHandlemsg] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,11 +46,11 @@ const Home = () => {
 
   const loadTodos = async () => {
     const result = await axios.get("http://localhost:3003/todos");
-    setTodo(result.data.reverse());
-    const tododata = result.data.reverse();
+    const tododata = result.data;
     const pendingtodo = tododata.filter((item) => !item.completed);
     const successtodo = tododata.filter((item) => item.completed);
 
+    setTodo(tododata.reverse());
     setCounttodo({
       total: tododata.length,
       pending: pendingtodo.length,
@@ -69,16 +72,19 @@ const Home = () => {
     setShow(false);
     setUser_details({
       title: "",
-      priority: "Priority",
+      priority: "None",
       completed: false,
       date: getCurrentDate(),
     });
     navigate("/");
+    setMsg("Task Added Successfully!!");
+    setHandlemsg(!handlemsg);
   };
   const handleAllClear = async () => {
     try {
       const res = await axios.delete("http://localhost:3003/todos");
-      console.log(res, "kghjkssa");
+      console.log(res.data.message);
+      setTodo([]);
       setCounttodo({
         total: 0,
         pending: 0,
@@ -91,7 +97,23 @@ const Home = () => {
 
   return (
     <div className="container-fluid home">
-       <div class="background-div"></div>
+      <div className="background-div"></div>
+      {handlemsg && (
+        <Snackbar
+          open={handlemsg}
+          autoHideDuration={3000}
+          onClose={() => setHandlemsg(!handlemsg)}
+        >
+          <Alert
+            onClose={() => setHandlemsg(!handlemsg)}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {msg}
+          </Alert>
+        </Snackbar>
+      )}
+
       <main className="front-div">
         <header>
           <div className="heading ">
@@ -105,9 +127,9 @@ const Home = () => {
           pending={pending}
           handleAllClear={handleAllClear}
         />
-         <div className="fill-box container">
-          <input 
-            placeholder="Add a todo"
+        <div className="fill-box container">
+          <input
+            placeholder="what's your plan for today?"
             name="title"
             value={title}
             onChange={(e) =>
@@ -116,7 +138,6 @@ const Home = () => {
                 [e.target.name]: e.target.value,
               })
             }
-          
             className="todo-input"
           />
           <span onClick={handleModal} className="todo-button">
@@ -129,17 +150,18 @@ const Home = () => {
               <Tasklist
                 item={item}
                 key={index}
-                handleModal={handleModal}
                 loadTodos={loadTodos}
                 completed={item.completed}
                 user_details={user_details}
                 setUser_details={setUser_details}
+                setMsg={setMsg}
+                setHandlemsg={setHandlemsg}
+                handlemsg={handlemsg}
+                getCurrentDate={getCurrentDate}
               />
             );
           })}
         </div>
-
-       
       </main>
 
       <CustomModal
