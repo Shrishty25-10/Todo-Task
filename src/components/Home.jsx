@@ -17,9 +17,10 @@ const Home = () => {
     title: "",
     priority: "None",
     completed: false,
-    date: getCurrentDate(),
+    startDate:"",
+    endDate:""
   });
-  const { title, priority, completed, date } = user_details;
+  const { title, priority, completed, startDate,endDate } = user_details;
   const [counttodo, setCounttodo] = useState({
     total: 0,
     success: 0,
@@ -33,12 +34,6 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  function getCurrentDate() {
-    const currentDate = new Date();
-    const day = currentDate.getDate();
-    const month = currentDate.toLocaleString("default", { month: "short" });
-    return `${day} ${month}`;
-  }
 
   useEffect(() => {
     loadTodos();
@@ -59,10 +54,19 @@ const Home = () => {
   };
 
   const handleModal = () => {
+    
     setShow(!show);
   };
 
   const handleModalClose = () => {
+    setUser_details({
+      ...user_details,
+      title : "",
+      priority:"None",
+      startDate:"",
+      endDate:""
+
+    });
     setShow(false);
   };
 
@@ -81,7 +85,8 @@ const Home = () => {
       title: "",
       priority: "None",
       completed: false,
-      date: getCurrentDate(),
+      startDate: "",
+      endDate:""
     });
     navigate("/");
     setMsg("Task Added Successfully!!");
@@ -169,7 +174,7 @@ const Home = () => {
                 setMsg={setMsg}
                 setHandlemsg={setHandlemsg}
                 handlemsg={handlemsg}
-                getCurrentDate={getCurrentDate}
+                
               />
             );
           })}
@@ -184,6 +189,8 @@ const Home = () => {
         user_details={user_details}
         setUser_details={setUser_details}
         priority={priority}
+        startDate={startDate}
+        endDate={endDate}
       />
     </div>
   );

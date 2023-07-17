@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
 const Drop = ({ priority, user_details, setUser_details }) => {
@@ -17,21 +17,26 @@ const Drop = ({ priority, user_details, setUser_details }) => {
           variant="dark"
           id="dropdown-basic"
           style={{
-            background: "linear-gradient( 90deg, rgb(97 35 221) 0%, rgb(223 75 99) 100% )",
+            background:
+              "linear-gradient( 90deg, rgb(97 35 221) 0%, rgb(223 75 99) 100% )",
             borderColor: "blue",
           }}
-          className="p-2 m-3 "
+          className="p-2 m-3"
         >
           Set Priority: {priority}
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="p-2">
+        <Dropdown.Menu className="p-2 dropdown-menu">
           <div className="dropdown-items-row">
-            <Dropdown.Item  eventKey="High">
+            <Dropdown.Item className="dropdown-item" eventKey="High">
               High
             </Dropdown.Item>
-            <Dropdown.Item eventKey="Middle">Middle</Dropdown.Item>
-            <Dropdown.Item eventKey="Low">Low</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" eventKey="Middle">
+              Middle
+            </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" eventKey="Low">
+              Low
+            </Dropdown.Item>
           </div>
         </Dropdown.Menu>
       </Dropdown>

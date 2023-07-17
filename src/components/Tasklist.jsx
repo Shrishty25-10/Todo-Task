@@ -5,7 +5,7 @@ import { useState} from "react";
 import axios from "axios";
 import { BsFillCircleFill } from "react-icons/bs";
 import UpdateModal from "./UpdateModal";
-import MyDatePicker from "./MyDatePicker";
+
 
 const Tasklist = ({
   item,
@@ -15,7 +15,6 @@ const Tasklist = ({
   setUser_details,
   setMsg,
   setHandlemsg,
-  getCurrentDate,
   handlemsg,
 }) => {
   const [openmodal, setOpenmodal] = useState(false);
@@ -27,7 +26,9 @@ const Tasklist = ({
     setUser_details({
       ...user_details,
       title : "",
-      priority:"None"
+      priority:"None",
+      startDate:"",
+      endDate:""
 
     });
     setOpenmodal(false);
@@ -59,7 +60,10 @@ const Tasklist = ({
     setUser_details({
       ...user_details,
       title: item.title,
-      priority:item.priority
+      priority:item.priority,
+      startDate:item.startDate,
+      endDate:item.endDate
+
     });
     setOpenmodal(!openmodal);
   }
@@ -86,7 +90,7 @@ const Tasklist = ({
         title: "",
         priority: "None",
         completed: false,
-        date: getCurrentDate(),
+        date: "",
       });
       setMsg("Task Updated Successfully!!");
       setHandlemsg(!handlemsg);
@@ -148,6 +152,7 @@ const Tasklist = ({
         handleSaveChanges={(e) => handleUpdate(e)}
         user_details={user_details}
         setUser_details={setUser_details}
+       
       />
     </div>
   );

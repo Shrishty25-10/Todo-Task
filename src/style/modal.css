@@ -58,7 +58,11 @@
   flex-direction: row;
 }
 
-/* Add space between dropdown items in a row */
-.dropdown-items-row .dropdown-item {
-  margin-right: 8px;
+
+
+
+
+
+.dropdown-item {
+  margin-right: 10px; 
 }

@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import "../style/modal.css";
 // AiFillEdit
 import { FaPenToSquare } from "react-icons/fa6";
 import Drop from "./Drop";
-const UpdateModal = ({
+
+
+const CustomModal = ({
   show,
   handleClose,
   handleSaveChanges,
+  title,
   setUser_details,
+  priority,
   user_details,
+  startDate,
+  endDate
 }) => {
+  console.log(startDate,endDate);
   return (
     <div>
       <Modal show={show} onHide={handleClose} className="custom-modal" centered>
         <Modal.Header closeButton>
-          <Modal.Title className="text-light">Update Task Details</Modal.Title>
+          <Modal.Title className="text-light">Task Details</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex align-items-center gap-4">
           <input
+            id="todo_edit"
             type="text"
-            id="edit_todo"
-            className="edittodo"
-            value={user_details.title}
             name="title"
+            value={title}
+            className="edittodo"
             onChange={(e) =>
               setUser_details({
                 ...user_details,
@@ -32,14 +39,15 @@ const UpdateModal = ({
             }
           />
           <span>
-            <label htmlFor="edit_todo">
+            <label htmlFor="todo_edit">
+              {" "}
               <FaPenToSquare size="35px" />
             </label>
           </span>
         </Modal.Body>
-        <div className="mx-1">
+        <div className="mx-1 ">
           <Drop
-            priority={user_details.priority}
+            priority={priority}
             user_details={user_details}
             setUser_details={setUser_details}
           />
@@ -56,18 +64,14 @@ const UpdateModal = ({
             >
               Start Date
             </label>
-            <input
-              type="date"
-              id="startdate"
-              className="m-3"
-              value={user_details.startDate}
-              name="startDate"
-              onChange={(e) =>
+            <input type="date" id="startdate" className="m-3" value={startDate} name="startDate"
+               onChange={(e) =>
                 setUser_details({
                   ...user_details,
                   [e.target.name]: e.target.value,
                 })
               }
+              
             />
           </div>
 
@@ -84,19 +88,13 @@ const UpdateModal = ({
             >
               End Date
             </label>
-            <input
-              type="date"
-              id="enddate"
-              className="m-3"
-              value={user_details.endDate}
-              name="endDate"
-              onChange={(e) =>
+            <input type="date" id="enddate" className="m-3" value={endDate} name="endDate" 
+               onChange={(e) =>
                 setUser_details({
                   ...user_details,
                   [e.target.name]: e.target.value,
                 })
-              }
-            />
+              }/>
           </div>
         </div>
         <Modal.Footer>
@@ -115,11 +113,11 @@ const UpdateModal = ({
             }}
             onClick={handleSaveChanges}
           >
-            Update
+            Save
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 };
-export default UpdateModal;
+export default CustomModal;
