@@ -1,32 +1,11 @@
 {
   "todos": [
     {
-      "title": "Call me on morning!",
-      "priority": "Middle",
+      "title": " vvvvvvvvvvvvvvvvvvv",
+      "priority": "None",
       "completed": false,
-      "date": "16 Jul",
+      "date": "17 Jul",
       "id": 1
-    },
-    {
-      "title": "First take your breakfast ",
-      "priority": "High",
-      "completed": false,
-      "date": "17 Jul",
-      "id": 2
-    },
-    {
-      "title": "Make presentation !",
-      "priority": "High",
-      "completed": false,
-      "date": "17 Jul",
-      "id": 3
-    },
-    {
-      "title": "Go outside for groceries..",
-      "priority": "Middle",
-      "completed": false,
-      "date": "17 Jul",
-      "id": 4
     }
   ]
 }

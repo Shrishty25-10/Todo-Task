@@ -6,6 +6,8 @@ import "../style/modal.css"
 // AiFillEdit
 import { FaPenToSquare } from "react-icons/fa6";
 import Drop from "./Drop";
+
+
 const CustomModal = ({
   show,
   handleClose,
@@ -49,11 +51,29 @@ const CustomModal = ({
             user_details={user_details}
             setUser_details={setUser_details}
           />
+          <Button
+            style={{
+               background: "#808080",
+            }}
+            
+          >
+            <input type="date"  />
+            Start Date
+          </Button>
+          <Button
+            style={{
+               background: "#808080",
+            }}
+            
+          >
+             <input type="date" value="End Date"  />
+            
+          </Button>
         </div>
         <Modal.Footer>
           <Button
             style={{
-               background: "linear-gradient( 90deg, rgb(97 35 221) 0%, rgb(223 75 99) 100% )",
+               background: "#808080",
             }}
             onClick={handleClose}
           >

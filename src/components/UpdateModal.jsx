@@ -53,7 +53,7 @@ const UpdateModal = ({
         <Modal.Footer>
           <Button
             style={{
-                background: "linear-gradient( 90deg, rgb(97 35 221) 0%, rgb(223 75 99) 100% )",
+                background: "#808080",
             }}
             onClick={handleClose}
           >

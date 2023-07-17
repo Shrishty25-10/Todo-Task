@@ -68,6 +68,13 @@ const Home = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!user_details.title){
+          
+           setMsg('Please enter some text!!');
+           setHandlemsg(!handlemsg);
+           
+    }
+    else{
     await axios.post("http://localhost:3003/todos", user_details);
     setShow(false);
     setUser_details({
@@ -79,11 +86,15 @@ const Home = () => {
     navigate("/");
     setMsg("Task Added Successfully!!");
     setHandlemsg(!handlemsg);
+  }
   };
   const handleAllClear = async () => {
     try {
-      const res = await axios.delete("http://localhost:3003/todos");
-      console.log(res.data.message);
+      console.log(todos);
+      const promiseTodos = todos.map((el) => {
+        return axios.delete(`http://localhost:3003/todos/${el.id}`)
+      })
+      await Promise.all(promiseTodos)
       setTodo([]);
       setCounttodo({
         total: 0,
@@ -106,7 +117,7 @@ const Home = () => {
         >
           <Alert
             onClose={() => setHandlemsg(!handlemsg)}
-            severity="success"
+            severity={msg==="Please enter some text!!"? "error" : "success"}
             sx={{ width: "100%" }}
           >
             {msg}
@@ -145,7 +156,8 @@ const Home = () => {
           </span>
         </div>
         <div>
-          {todos.map((item, index) => {
+          {todos.length===0? <h1 className="text-center my-4" style={{color:"whitesmoke"}}>No  added tasks</h1>:null}
+          {todos && todos.map((item, index) => {
             return (
               <Tasklist
                 item={item}

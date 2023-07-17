@@ -5,6 +5,7 @@ import { useState} from "react";
 import axios from "axios";
 import { BsFillCircleFill } from "react-icons/bs";
 import UpdateModal from "./UpdateModal";
+import MyDatePicker from "./MyDatePicker";
 
 const Tasklist = ({
   item,
@@ -23,6 +24,12 @@ const Tasklist = ({
   };
 
   const handleModalClose = () => {
+    setUser_details({
+      ...user_details,
+      title : "",
+      priority:"None"
+
+    });
     setOpenmodal(false);
   };
 
@@ -58,6 +65,13 @@ const Tasklist = ({
   }
 
   const handleUpdate = async (e) => {
+    if (!user_details.title){
+          
+      setMsg('Please enter some text!!');
+      setHandlemsg(!handlemsg);
+      
+    }
+    else{
     try {
       const updatedItem = {
         ...item,
@@ -79,6 +93,7 @@ const Tasklist = ({
     } catch (error) {
       console.error("Error updating task:", error);
     }
+  }
   };
 
   return (
