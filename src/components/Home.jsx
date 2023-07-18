@@ -17,10 +17,10 @@ const Home = () => {
     title: "",
     priority: "None",
     completed: false,
-    startDate:"",
-    endDate:""
+    startDate: "",
+    endDate: "",
   });
-  const { title, priority, completed, startDate,endDate } = user_details;
+  const { title, priority, completed, startDate, endDate } = user_details;
   const [counttodo, setCounttodo] = useState({
     total: 0,
     success: 0,
@@ -34,14 +34,21 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     loadTodos();
   }, [user_details]);
 
   const loadTodos = async () => {
-    const result = await axios.get("http://localhost:3003/todos");
-    const tododata = result.data;
+    const response = await axios.get(
+      "https://8fd4-103-180-81-82.ngrok-free.app/lists",
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "skip-browser-warning",
+        },
+      }
+    );
+    console.log("Data fetched:", response);
+    const tododata = response.data;
     const pendingtodo = tododata.filter((item) => !item.completed);
     const successtodo = tododata.filter((item) => item.completed);
 
@@ -54,52 +61,62 @@ const Home = () => {
   };
 
   const handleModal = () => {
-    
     setShow(!show);
   };
 
   const handleModalClose = () => {
     setUser_details({
       ...user_details,
-      title : "",
-      priority:"None",
-      startDate:"",
-      endDate:""
-
+      title: "",
+      priority: "None",
+      startDate: "",
+      endDate: "",
     });
     setShow(false);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!user_details.title){
-          
-           setMsg('Please enter some text!!');
-           setHandlemsg(!handlemsg);
-           
+    if (!user_details.title) {
+      setMsg("Please enter some text!!");
+      setHandlemsg(!handlemsg);
+    } else {
+      const headers = {
+        "ngrok-skip-browser-warning": "skip-browser-warning",
+      };
+
+      axios.post(
+        "https://8fd4-103-180-81-82.ngrok-free.app/lists",
+        user_details,
+        {
+          headers,
+        }
+      );
+      setShow(false);
+      setUser_details({
+        title: "",
+        priority: "None",
+        completed: false,
+        startDate: "",
+        endDate: "",
+      });
+      // navigate("/");
+      setMsg("Task Added Successfully!!");
+      setHandlemsg(!handlemsg);
     }
-    else{
-    await axios.post("http://localhost:3003/todos", user_details);
-    setShow(false);
-    setUser_details({
-      title: "",
-      priority: "None",
-      completed: false,
-      startDate: "",
-      endDate:""
-    });
-    navigate("/");
-    setMsg("Task Added Successfully!!");
-    setHandlemsg(!handlemsg);
-  }
   };
+
+  console.log(user_details, "this is to send thissss");
   const handleAllClear = async () => {
     try {
       console.log(todos);
-      const promiseTodos = todos.map((el) => {
-        return axios.delete(`http://localhost:3003/todos/${el.id}`)
-      })
-      await Promise.all(promiseTodos)
+      const headers = {
+        "ngrok-skip-browser-warning": "skip-browser-warning",
+      };
+
+      axios.delete("https://8fd4-103-180-81-82.ngrok-free.app/delete_all", {
+        headers,
+      });
       setTodo([]);
       setCounttodo({
         total: 0,
@@ -122,7 +139,7 @@ const Home = () => {
         >
           <Alert
             onClose={() => setHandlemsg(!handlemsg)}
-            severity={msg==="Please enter some text!!"? "error" : "success"}
+            severity={msg === "Please enter some text!!" ? "error" : "success"}
             sx={{ width: "100%" }}
           >
             {msg}
@@ -161,23 +178,27 @@ const Home = () => {
           </span>
         </div>
         <div>
-          {todos.length===0? <h1 className="text-center my-4" style={{color:"whitesmoke"}}>No  added tasks</h1>:null}
-          {todos && todos.map((item, index) => {
-            return (
-              <Tasklist
-                item={item}
-                key={index}
-                loadTodos={loadTodos}
-                completed={item.completed}
-                user_details={user_details}
-                setUser_details={setUser_details}
-                setMsg={setMsg}
-                setHandlemsg={setHandlemsg}
-                handlemsg={handlemsg}
-                
-              />
-            );
-          })}
+          {todos.length === 0 ? (
+            <h1 className="text-center my-4" style={{ color: "whitesmoke" }}>
+              No added tasks
+            </h1>
+          ) : null}
+          {todos &&
+            todos.map((item, index) => {
+              return (
+                <Tasklist
+                  item={item}
+                  key={index}
+                  loadTodos={loadTodos}
+                  completed={item.completed}
+                  user_details={user_details}
+                  setUser_details={setUser_details}
+                  setMsg={setMsg}
+                  setHandlemsg={setHandlemsg}
+                  handlemsg={handlemsg}
+                />
+              );
+            })}
         </div>
       </main>
 

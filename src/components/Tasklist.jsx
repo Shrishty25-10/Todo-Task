@@ -1,11 +1,10 @@
 import React from "react";
 import "../style/home.css";
 import { MdDelete } from "react-icons/md";
-import { useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 import { BsFillCircleFill } from "react-icons/bs";
 import UpdateModal from "./UpdateModal";
-
 
 const Tasklist = ({
   item,
@@ -25,17 +24,22 @@ const Tasklist = ({
   const handleModalClose = () => {
     setUser_details({
       ...user_details,
-      title : "",
-      priority:"None",
-      startDate:"",
-      endDate:""
-
+      title: "",
+      priority: "None",
+      startDate: "",
+      endDate: "",
     });
     setOpenmodal(false);
   };
 
   const deletetodo = async (id) => {
-    await axios.delete(`http://localhost:3003/todos/${id}`);
+    const headers = {
+      "ngrok-skip-browser-warning": "skip-browser-warning",
+    };
+
+    axios.delete(`https://8fd4-103-180-81-82.ngrok-free.app/lists/${item.id}`, {
+      headers,
+    });
     loadTodos();
     setMsg("Task Deleted Successfully!!");
     setHandlemsg(!handlemsg);
@@ -46,8 +50,19 @@ const Tasklist = ({
       completed: !completed,
     };
 
+    console.log("check box delete ", updatedItem);
     // Update the 'completed' property in the backend
-    await axios.put(`http://localhost:3003/todos/${item.id}`, updatedItem);
+    const headers = {
+      "ngrok-skip-browser-warning": "skip-browser-warning",
+    };
+
+    axios.patch(
+      `https://8fd4-103-180-81-82.ngrok-free.app/lists/${item.id}`,
+      updatedItem,
+      {
+        headers,
+      }
+    );
 
     // Update the 'completed' property in the state
     setUser_details({
@@ -56,48 +71,54 @@ const Tasklist = ({
     });
   };
 
-  const handleModalclick = () =>{
+  const handleModalclick = () => {
     setUser_details({
       ...user_details,
       title: item.title,
-      priority:item.priority,
-      startDate:item.startDate,
-      endDate:item.endDate
-
+      priority: item.priority,
+      startDate: item.startDate,
+      endDate: item.endDate,
     });
     setOpenmodal(!openmodal);
-  }
+  };
 
   const handleUpdate = async (e) => {
-    if (!user_details.title){
-          
-      setMsg('Please enter some text!!');
+    if (!user_details.title) {
+      setMsg("Please enter some text!!");
       setHandlemsg(!handlemsg);
-      
-    }
-    else{
-    try {
-      const updatedItem = {
-        ...item,
-        title: user_details.title,
-        priority: user_details.priority,
-      };
+    } else {
+      try {
+        const updatedItem = {
+          ...item,
+          title: user_details.title,
+          priority: user_details.priority,
+        };
 
-      await axios.put(`http://localhost:3003/todos/${item.id}`, updatedItem);
-      loadTodos();
-      setOpenmodal(false);
-      setUser_details({
-        title: "",
-        priority: "None",
-        completed: false,
-        date: "",
-      });
-      setMsg("Task Updated Successfully!!");
-      setHandlemsg(!handlemsg);
-    } catch (error) {
-      console.error("Error updating task:", error);
+        const headers = {
+          "ngrok-skip-browser-warning": "skip-browser-warning",
+        };
+
+        axios.patch(
+          `https://8fd4-103-180-81-82.ngrok-free.app/lists/${item.id}`,
+          updatedItem,
+          {
+            headers,
+          }
+        );
+        loadTodos();
+        setOpenmodal(false);
+        setUser_details({
+          title: "",
+          priority: "None",
+          completed: false,
+          date: "",
+        });
+        setMsg("Task Updated Successfully!!");
+        setHandlemsg(!handlemsg);
+      } catch (error) {
+        console.error("Error updating task:", error);
+      }
     }
-  }
   };
 
   return (
@@ -152,7 +173,6 @@ const Tasklist = ({
         handleSaveChanges={(e) => handleUpdate(e)}
         user_details={user_details}
         setUser_details={setUser_details}
-       
       />
     </div>
   );
